@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        input{ width: 20px; height: 20px;}
+    </style>
+</head>
+<body>
+<div id="inputs">
+    <input type="checkbox"><br/>
+    <input type="checkbox"><br/>
+    <input type="checkbox"><br/>
+    <input type="checkbox"><br/>
+    <input type="checkbox"><br/>
+</div>
+<div id="btn"><input type="checkbox">全选</div>
+
+<script>
+var inputs = document.querySelectorAll('#inputs input');
+var btninput = document.querySelector('#btn input');
+var n=0;
+btninput.onclick = function () {
+    for(var i=0; i<inputs.length; i++) {
+        inputs[i].checked = this.checked;
+    }
+}
+for(var i =0; i<inputs.length; i++){
+    this.checked?n++:n--;
+    btninput.checked = (this.checked?n++:n--) ==inputs.length;
+}
+
+
+
+</script>
+
+</body>
+</html>

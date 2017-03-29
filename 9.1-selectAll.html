@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        input{ width: 20px; height: 20px;}
+    </style>
+</head>
+<body>
+<div id="inputs">
+    <input type="checkbox"><br/>
+    <input type="checkbox"><br/>
+    <input type="checkbox"><br/>
+    <input type="checkbox"><br/>
+    <input type="checkbox"><br/>
+</div>
+<div id="btn"><input type="checkbox">全选</div>
+<script>
+
+    /*思路：
+   判断所有input是否选中，是，button input选中， 否，buutton input不选中
+
+   问题：怎么判断所有的是是否选中；
+   解决：设置变量，若选中的为true 则n++,为false 则n--; 最后判断n的个数。
+    * */
+    var inputs = document.querySelectorAll('#inputs input');
+    var btninput = document.querySelector('#btn input');
+    //var turnoff = false;
+    var n = 0;
+
+    btninput.onclick = function () {
+        for(var i=0;i<inputs.length;i++){
+            inputs[i].checked = this.checked;
+            /*if(){
+                inputs[i].checked = this.checked;
+            }else{
+                inputs[i].checked = false;
+            }
+*/
+        }
+
+       /* if(this.checked){
+            for(var i=0;i<inputs.length;i++){
+                inputs[i].checked = true;
+            }
+        }else{
+            for(var i=0;i<inputs.length;i++){
+                inputs[i].checked = false;
+            }
+        }*/
+    }
+    for(var i=0;i<inputs.length;i++){
+        inputs[i].onclick = function () {
+//            if(this.checked){
+//                n++;
+//            }else{
+//                n--;
+//            }
+            //;
+            btninput.checked = (this.checked ? n++ : n--)==inputs.length;
+            /*if(n==inputs.length){
+                btninput.checked = true;
+            }else{
+                btninput.checked = false;
+            }*/
+        }
+    }
+</script>
+
+</body>
+</html>

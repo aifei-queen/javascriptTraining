@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+inpu{ width: 30px;}
+    .top li{list-style: none;}
+    .top p{ display: inline-block;}
+    .num { display: inline-block; width: 40px; height: 24px; text-align: center; border: 1px solid #eee;}
+    button{ vertical-align: 1px;}
+</style>
+<div class="top">
+    <ul>
+
+        <li>
+            <button class="minus">-</button>
+            <span class="num" >0</span>
+            <button class="add">+</button>
+            单价：<span class="price">22</span>元
+            小计<span class="subtotal">0</span>元
+        </li>
+        <li>
+            <button class="minus">-</button>
+            <span class="num" >0</span>
+            <button class="add">+</button>
+            单价：<span class="price">12.5</span>元
+            小计<span class="subtotal">0</span>元
+        </li>
+        <li>
+            <button class="minus">-</button>
+            <span class="num" >0</span>
+            <button class="add">+</button>
+            单价：<span class="price">10.5</span>元
+            小计<span class="subtotal">0</span>元
+        </li>
+        <li>
+            <button class="minus">-</button>
+            <span class="num" >0</span>
+            <button class="add">+</button>
+            单价：<span class="price">14.5</span>元
+            小计<span class="subtotal">0</span>元
+        </li>
+        <li>
+            <button class="minus">-</button>
+            <span class="num" >0</span>
+            <button class="add">+</button>
+            单价：<span class="price">18</span>元
+            小计<span class="subtotal">0</span>元
+        </li>
+    </ul>
+</div>
+<div class="bottom">
+    <p>
+        商品共合计：<span id="allnum">0</span>件；<br/>
+        共花费了：<span id="total">0</span>元；<br>
+        其中最贵的商品单价是：<span id="expensive">0</span>元
+    </p>
+</div>
+<script>
+/*
+思路：
+1：对列表操作进行分组，然后把相同功能的元素和操作分成一组，再通过下标对应的功能进行操作。
+2：当按钮被点击的时候找到和当前点击的减号按钮对应的其他元素
+*/
+var add = document.querySelectorAll(".add");//加
+var minus = document.querySelectorAll(".minus");//减
+var price = document.querySelectorAll(".price");//单价
+var subtotal = document.querySelectorAll(".subtotal");//小计
+var num = document.querySelectorAll(".num");//件数
+var allnum = document.querySelector("#allnum");//总个数
+var total = document.querySelector("#total");//总计
+var expensive = document.querySelector("#expensive");//最贵单价
+
+
+for(var i=0; i<add.length;i++){
+    add[i].index = i;
+    minus[i].index = i;
+
+    add[i].onclick = function (){
+        //1）获取件数当前值；  2）把当前的件数累加1； 3）把结果赋值给num.innerHTML;
+        var n = Number(num[this.index].innerHTML);
+        n += 1;
+        num[this.index].innerHTML = n;
+        //小计：得到件数，得到当前对应的单价，用数量乘以单价，把计算结果赋值给小计
+        subtotal[this.index].innerHTML =  n * Number(price[this.index].innerHTML);
+        //总个数 1：获取每个商品的个数  2：通过循环，把个数累加
+        //总花费：通过循环，把小计累加
+        var a = 0;//总的购买数量  不能放外面
+        var b = 0;//总的花费  不能放外面
+        for(var i =0;i<num.length;i++){
+            a+=Number(num[i].innerHTML);
+            allnum.innerHTML = a;
+            b+=Number(subtotal[i].innerHTML);
+            total.innerHTML = b;
+        }
+
+        //比较已购买的商品中最贵的
+        //因为只比较购买数量大于0的商品
+        var m = 0//记录当前购买的最贵的单价。
+        for(var i=0;i<price.length;i++){
+            //当当前值大于m,把当前值赋给m;
+            if(Number(num[i].innerHTML) > 0 && Number(price[i].innerHTML) > m){
+                m = Number(price[i].innerHTML);
+            }
+            expensive.innerHTML = m;
+            //alert(m);
+        }
+
+
+    }
+
+    minus[i].onclick = function (){
+        //1）获取件数当前值；  2）把当前的件数累减1； 3）把结果赋值给num.innerHTML;
+        //判断当前值是否大于0；若大于0，才在当前值做减一的操作
+        var n = Number(num[this.index].innerHTML);
+        if(n>0){
+            n -= 1;
+            num[this.index].innerHTML = n;
+        }
+        subtotal[this.index].innerHTML =  n * Number(price[this.index].innerHTML);
+
+        var a = 0;//总的购买数量  不能放外面
+        var b = 0;//总的花费  不能放外面
+        for(var i =0;i<num.length;i++){
+            a+=Number(num[i].innerHTML);
+            allnum.innerHTML = a;
+            b+=Number(subtotal[i].innerHTML);
+            total.innerHTML = b;
+        }
+
+        var m = 0//记录当前购买的最贵的单价。
+        for(var i=0;i<price.length;i++){
+            //当当前值大于m,把当前值赋给m;
+            if(Number(num[i].innerHTML) > 0 && Number(price[i].innerHTML) > m){
+                m = Number(price[i].innerHTML);
+            }
+            expensive.innerHTML = m;
+            //alert(m);
+        }
+    }
+}
+//比较所有商品中最贵的
+/*var c = 0//记录当前购买的最贵的单价。
+for(var i=0;i<price.length;i++){
+    //当当前值大于m,把当前值赋给m;
+    if(Number(price[i].innerHTML) > c){
+        c = Number(price[i].innerHTML);
+    }
+    expensive.innerHTML = c;
+}*/
+
+
+/*for(var i=0; i<add.length;i++){
+    minus[i].index = i;
+    add[i].index = i;
+    minus[i].onclick = function (){
+        var n = Number(num[this.index].innerHTML);//获取已有的个数；
+        if(n>0){//如果当前值大于0，件数减一，总个数减一
+            var n = n - 1;
+            a -= 1;
+        }
+        num[this.index].innerHTML = n;
+        subtotal[this.index].innerHTML = n * Number(price[this.index].innerHTML);
+        allnum.innerHTML = a;
+        total.innerHTML = b;
+    }
+    add[i].onclick = function (){
+        a = a+1;
+        b = b + Number(price[this.index].innerHTML);//增加一件商品，
+        if(Number(price[this.index].innerHTML)>c){//若当前价格大于c,则把当前价格赋值给c;
+            c = Number(price[this.index].innerHTML);
+        }
+        var n = Number(num[this.index].innerHTML) + 1;
+        num[this.index].innerHTML = n;
+        subtotal[this.index].innerHTML = n * Number(price[this.index].innerHTML);
+        allnum.innerHTML = a;
+        total.innerHTML = b;
+        expensive.innerHTML = c;
+
+    }
+
+
+}
+
+//找到单价中最大的值
+var max = 0;
+for(var i = 0; i<price.length; i++){
+
+}*/
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+
+    .top li{list-style: none;}
+    .top p{ display: inline-block;}
+    .num { display: inline-block; width: 40px; height: 24px; text-align: center; border: 1px solid #eee;}
+    button{ vertical-align: 1px;}
+</style>
+<div class="top">
+    <ul>
+
+        <li>
+            <button class="minus">-</button>
+            <span class="num">0</span>
+            <button class="add">+</button>
+            <p>
+                单价：<span class="price">14.5</span>元 小计<span class="subtotal">0</span>元
+            </p>
+        </li>
+        <li>
+            <button class="minus">-</button>
+            <span class="num">0</span>
+            <button class="add">+</button>
+            <p>
+                单价：<span class="price">10.5</span>元 小计<span class="subtotal">0</span>元
+            </p>
+        </li>
+        <li>
+            <button class="minus">-</button>
+            <span class="num">0</span>
+            <button class="add">+</button>
+            <p>
+                单价：<span class="price">14</span>元 小计<span class="subtotal">0</span>元
+            </p>
+        </li>
+        <li>
+            <button class="minus">-</button>
+            <span class="num">0</span>
+            <button class="add">+</button>
+            <p>
+                单价：<span class="price">6</span>元 小计<span class="subtotal">0</span>元
+            </p>
+        </li>
+        <li>
+            <button class="minus">-</button>
+            <span class="num">0</span>
+            <button class="add">+</button>
+            <p>
+                单价：<span class="price">12</span>元 小计<span class="subtotal">0</span>元
+            </p>
+        </li>
+    </ul>
+</div>
+<div class="bottom">
+    <p>
+        商品共合计：<span id="allnum">0</span>件；<br/>
+        共花费了：<span id="total">0</span>元；<br>
+        其中最贵的商品单价是：<span id="expensive">0</span>元
+    </p>
+</div>
+<script>
+   /* 思路：
+   1：点击add,
+   1）num 加 1
+   2）获取price 的值 乘以 num ,并把结果赋值给 subtotal(小计)；
+   2： 点击minus
+   1)判断num 大于0 则num 减 1，否则 num = 0;
+   2）获取price 的值 乘以 num ,并把结果赋值给 subtotal(小计)；
+   3:
+   allnum  =  所有num 之和；
+   total = 所有subtotal 之和；
+   expensive = 单价的最大值；
+   * */
+
+   var add = document.querySelectorAll(".add");//加
+   var minus = document.querySelectorAll(".minus");//减
+   var price= document.querySelectorAll(".price");//单价
+   var subtotal = document.querySelectorAll(".subtotal");//小计
+   var num = document.querySelectorAll(".num");//单个商品件数
+   var allnum = document.querySelector("#allnum");//总件数
+   var total = document.querySelector("#total");//总价
+   var expensive = document.querySelectorAll("#expensive");//最贵
+
+   for(var i=0; i<add.length;i++){
+        add[i].index = i;
+        add[i].onclick = function (){
+            var n = Number(num[this.index].innerHTML)+1;
+            var p = Number(price[this.index].innerHTML);
+            subtotal[this.index].innerHTML = n*p;
+            //allnum.innerHTML = s++;
+
+        }
+       minus[i].index = i;
+       minus[i].onclick = function (){
+           var n = Number(num[this.index].innerHTML)-1;
+           var p = Number(price[this.index].innerHTML);
+           subtotal[this.index].innerHTML = n*p;
+
+       }
+
+   }
+
+
+
+</script>
+</body>
+</html>
