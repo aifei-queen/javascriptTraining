@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input id="v1" />
+<!--<span id="styles">+</span>-->
+<select id="v2">
+    <option>+</option>
+    <option>-</option>
+    <option>*</option>
+    <option>/</option>
+    <option>%</option>
+</select>
+<input id="v3" />
+<button id="btn">=</button>
+<span id="v4"></span>
+<script>
+    var v1 = document.getElementById("v1");
+    var v2 = document.getElementById("v2");
+    var v3 = document.getElementById("v3");
+    var v4 = document.getElementById("v4");
+    var btn = document.getElementById("btn");
+    //console.log(v1.id);
+    btn.onclick = function(){
+        var num1 =Number(v1.value);
+        var num2 = Number(v3.value);
+        //v4.innerHTML = Number(v1.value) * Number(v3.value);
+        if(v2.value == "+"){
+            v4.innerHTML = num1 + num2;
+        }
+        if(v2.value == "-"){
+            v4.innerHTML =num1 - num2;
+        }
+        if(v2.value == "*"){
+            v4.innerHTML = num1 * num2;
+        }
+        if(v2.value == "/"){
+            v4.innerHTML = num1 / num2;
+        }
+        else{
+            if(v2.value == "%"){
+                v4.innerHTML = num1 % num2;
+            }
+        }
+
+    }
+
+</script>
+</body>
+</html>

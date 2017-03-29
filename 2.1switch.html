@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    #checkbox1,#checkbox2,#checkbox3{ display:inline-block;  padding: 5px 20px; color: #333; border:1px solid #e3e3e3;}
+    #checkbox1.focus,#checkbox2.f2,#checkbox3.f3{ background-color: red; color: #fff;}
+</style>
+<div id="checkbox1">不同意</div>
+<div id="checkbox2">不同意</div>
+<div id="checkbox3">不同意</div>
+<script>
+    /*1,获取元素
+    2.给元素的点击添加函数
+    3，当用户点击的时候，根据当前元素的状态，处理不同的需求
+    1)根据当前元素的class来判断
+
+
+    */
+
+    var div1 = document.getElementById("checkbox1");
+    var div2 = document.getElementById("checkbox2");
+    var div3 = document.getElementById("checkbox3");
+
+
+div1.onclick = function(){
+    if(div1.className == ""){
+        div1.className = "focus";
+        div1.innerHTML = "同意";
+    }else{
+        div1.className = "";
+        div1.innerHTML = "不同意";
+    }
+}
+
+div2.onclick= function(){
+    if(div2.innerHTML == "不同意"){
+        div2.className = "f2";
+        div2.innerHTML = "同意";
+    }else{
+        div2.className = "";
+        div2.innerHTML = "不同意";
+    }
+}
+    var ischecked = false;
+    div3.onclick= function(){
+        if(!ischecked){
+            div3.className = "f3";
+            div3.innerHTML = "同意";
+
+        }else{
+            div3.className = "";
+            div3.innerHTML = "不同意";
+        }
+       ischecked = !ischecked;
+    }
+
+</script>
+
+</body>
+</html>

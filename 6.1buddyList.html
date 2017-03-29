@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>好友列表</title>
+</head>
+<body>
+<style>
+    *{margin: 0; padding: 0;}
+    ul,li{ list-style: none; }
+    .box{width:360px;}
+    .box h3{ height: 36px; line-height: 36px; text-indent: 20px; background:#ddd; }
+    .box > ul > li{ margin-bottom: 1px;}
+    .box > ul > li > ul{ display: none;}
+    .box > ul > li > ul > li{ text-indent: 40px; height: 30px; line-height: 30px; background:#eee; }
+</style>
+<div class="box">
+    <ul id = "boxul">
+        <li>
+            <h3>我的好友</h3>
+            <ul>
+                <li>萌萌</li>
+                <li>佳佳</li>
+                <li>煮夫</li>
+                <li>萌萌</li>
+            </ul>
+        </li>
+        <li>
+            <h3>我的家人</h3>
+            <ul>
+                <li>听听</li>
+                <li>小蜜蜂</li>
+                <li>飞在空中的鸟</li>
+                <li>萌萌</li>
+            </ul>
+        </li>
+        <li>
+            <h3>我的死敌</h3>
+            <ul>
+                <li>多个</li>
+                <li>贵绳股份</li>
+                <li>给</li>
+                <li>哥哥</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<script>
+    /*思路：
+1：获取所有h3标签
+2：给h3添加鼠标经过事件
+    a)经过时给该h3标签添加背景色效果
+3：给h3标签添加鼠标移开事件
+   a)移开后给该h3标签恢复到初始背景色值
+4：给h3标签添加点击事件
+    a)让上一个h3标签的背景色为浅色
+    b）给该h3标签添加深色背景色效果，并且鼠标移开不会发生变化
+     c)隐藏上一个h3标签下的ul元素
+    d) 点击后展示该h3标签下的 ul 元素
+
+5：获取所有子级li 元素
+6：给所有子级li标签添加鼠标移开事件
+     a)经过时给该li标签添加背景色效果
+7:给所有子级li标签添加鼠标移开事件
+     a)移开后给该li标签恢复到初始背景色值
+
+ 8:给所有子级li标签添加点击事件
+     点击后给该li标签添加背景色
+    * */
+/*遇到的问题：
+1：点击之后鼠标移开h3 颜色怎么保持神色
+2;解决： 开关打开之后记得关掉，要跟上一个的状态进行关联
+* */
+var  h3 = document.querySelectorAll('h3');
+var uls = document.querySelectorAll('#boxul ul');
+var lis = document.querySelectorAll('#boxul ul li');
+var n = 0;
+var m = 0;
+var s = 1;
+for(var i=0;i<h3.length;i++){
+    h3[i].index = i;
+    //h3[i].isclick = true;
+    h3[i].onmouseover = function(){
+        this.style.background = '#999';
+    }
+   h3[i].onmouseout = function(){
+        if(this.isclick){
+            this.style.background = '#ddd';
+        }else{
+            this.style.background = '#999';
+        }
+    }
+ /*   h3[i].numcount = 1;
+    h3[i].onclick = function(){
+        this.numcount += 1;
+       if(this.numcount%2==0){
+
+           h3[n].style.background = '#ddd';
+           this.style.background = '#999';
+           uls[n].style.display = 'none';
+           uls[this.index].style.display = 'block';
+       }else{
+           this.style.background = '#ddd';
+           uls[n].style.display = 'none';
+           uls[this.index].style.display = 'none';
+       }
+
+        //this.isclick = !this.isclick;
+        n = this.index;
+    }*/
+
+    h3[i].onclick = function(){
+        h3[n].style.background = '#ddd';
+        h3[n].isclick = true;
+       this.style.background = '#999';
+       uls[n].style.display = 'none';
+       uls[this.index].style.display = 'block';
+       this.isclick = !this.isclick;
+       n = this.index;
+    }
+}
+
+for(var i =0;i<lis.length; i++){
+    lis[i].index = i;
+    lis[i].isclick = false;
+    lis[i].onmouseover = function () {
+        if(this.isclick){
+            this.style.background = "#ff3256";
+        }else {
+            this.style.background = "#aaa";
+        }
+    }
+    lis[i].onmouseout = function () {
+        if(this.isclick){
+            this.style.background = "#ff3256";
+        }else {
+            this.style.background = "#eee";
+        }
+    }
+    lis[i].onclick = function () {
+        lis[m].style.background = '#eee';
+        lis[m].isclick = false;
+        lis[this.index].style.background = '#eee';
+        this.style.background = '#ff3256';
+        m = this.index;
+        this.isclick = !this.isclick;
+    }
+ }
+
+</script>
+</body>
+</html>

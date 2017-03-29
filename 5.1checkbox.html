@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>模拟复选框</h1>
+<button>选项一</button>
+<button>选项二</button>
+<button>选项三</button>
+<button>选项四</button>
+<button>选项五</button>
+<script>
+/*思路：
+1：获取所有的复选框
+2，给复选框添加点击事件
+3，当点击的时候执行的函数
+   a)判断当前点击的复选框是否被选中  -》若选中，则取消选择，否则添加选中效果
+* */
+var btns = document.querySelectorAll('button');
+//方法二
+for(var i=0; i<btns.length; i++){
+    btns[i].index = false;
+    btns[i].onclick = function () {
+        if(this.index){
+            this.style.background='';
+        }else{
+            this.style.background='red';
+        }
+        this.index = !this.index;
+    }
+}
+
+
+/*//方法一
+ var btns = document.querySelectorAll('button');
+for(var i=0;i<btns.length;i++){
+    btns[i].onclick = function () {
+        if(this.style.background==''){
+            this.style.background='red';
+        }else{
+            this.style.background='';
+        }
+    }
+}*/
+
+
+</script>
+</body>
+</html>

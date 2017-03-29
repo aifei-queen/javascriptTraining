@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>请录入成绩</h1>
+<p>语文：<input type="text" /></p>
+<p>数学：<input type="text" /></p>
+<p>英语：<input type="text" /></p>
+
+<hr>
+<button id="btn">统计：</button>
+<p>总分：<span id="total"></span></p>
+<p>平均分：<span id="avg"></span></p>
+<p>评价：<span id="rs"></span></p>
+
+<script>
+    //平均分：小于等于30；及其糟糕
+    //30-60：不及格
+   // 60-80：良好
+    //80-90优秀
+    //90-100 nb
+//querySelector:获取一个对象，querySelectorAll：获取到的是一个集合
+    var btn = document.querySelector("#btn");//ie9 一下都不兼容
+    var total = document.querySelector("#total");
+    var avg = document.querySelector("#avg");
+    var rs = document.querySelector("#rs");
+    var inputs = document.querySelectorAll("input");
+
+    btn.onclick = function(){
+        // [ ] 中括号运算符 和 . 点运算符类似，用来获取对象属性，使用中括号的时候，属性名必须是字符串,[]优先级高于.运算符
+        //中括号会先取username,再给obj,中括号里相当于是个变量
+        // 如果属性的名称是纯数字，可以不是字符串数字
+           /* var obj={
+                usernamee:"miaov"
+            }
+            var username = "a";
+        console.log(obj.username);//miaoov
+        console.log(obj[username]);//undefind*/
+
+           var totalNum = Number(inputs[0].value)+Number(inputs[1].value)+Number(inputs[2].value);
+           var avgNum = totalNum/3;
+           console.log(totalNum);
+           //isNaN(要验证的值); 验证一个值是不是NaN,返回 true/false
+        //NaN:最大的特点 NaN 不等于 NaN；
+        // console.log(NaN == NaN) 判断？
+        if(isNaN(totalNum)){
+            alert("请输入正常分数");
+        }else{
+            total.innerHTML = totalNum;
+            avg.innerHTML = avgNum;
+            var s="";
+            if(avgNum>=0 && avgNum <=30){
+                s = "极其糟糕";
+            }
+            if(avgNum >30 && avgNum<=60 ){
+                s = "不及格";
+            }
+            if(avgNum >60 && avgNum<=80 ){
+                s = "良好";
+            }
+            if(avgNum >80 && avgNum<=90 ){
+               s = "优秀";
+            }
+            if(avgNum >90 && avgNum<=100 ){
+               s = "NB"
+            }
+            rs.innerHTML = s;
+        }
+    }
+
+
+</script>
+</body>
+</html>

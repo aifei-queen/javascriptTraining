@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>百度评分</title>
+</head>
+<body>
+<style>
+    .pf-box span{ display:inline-block; width: 20px; height: 20px; margin-right: 5px; border: 1px solid #ccc;}
+    .pf-box p{ display: inline-block;}
+</style>
+<div class="pf-box">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <p></p>
+</div>
+<script>
+   /* 思路  一般 不错  推荐 力荐
+   经过事件：
+   1：经过第一个span,当前span背景色变浅粉色，p 文字为极差
+   2：经过第二个span,当前span以及前面的span背景色变浅粉色，p文字为一般，
+   3：经过第三个span,当前span以及前面的span背景色变红色，p文字为不错，
+   4：经过第四个span,当前span以及前面的span背景色变红色，p文字为推荐，
+   5：经过第五个span,当前span以及前面的span背景色变红色，p文字为力荐，
+移开：恢复到最初的样子
+点击事件：
+跟点击事件一样效果，但移开后固定在经过时的样子
+
+
+问题：
+1：怎么得到当前span 前面的值？
+
+   * */
+
+var spans = document.querySelectorAll("span");
+var p = document.querySelector("p");
+var txt = ["极差","一般","不错","推荐","力荐"];
+var n = -1;
+for(var i=0; i<spans.length; i++){
+    spans[i].index = i;
+    spans[i].onmouseover = function () {
+        for(var j=0;j<spans.length;j++){
+            if(j<=this.index){
+                spans[j].style.background = "red";
+            }else{
+                spans[j].style.background = "";
+            }
+        }
+    }
+    spans[i].onmouseout = function () {
+        for(var j=0;j<spans.length;j++){
+            if(j<= n){
+                spans[j].style.background = "red";
+            }else{
+                spans[j].style.background = "";
+            }
+        }
+    }
+    spans[i].onclick = function () {
+        n = this.index;
+    }
+}
+
+</script>
+
+</body>
+</html>

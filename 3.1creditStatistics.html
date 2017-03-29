@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>请录入成绩</h1>
+<p>语文：<input id="c1"></p>
+<p>数学：<input id="c2"></p>
+<p>英语：<input id="c3"></p>
+
+<hr>
+<button id="btn">统计：</button>
+<p>总分：<span id="total"></span></p>
+<p>平均分：<span id="average"></span></p>
+<p>评价：<span id="result"></span></p>
+
+<script>
+    //平均分：小于等于30；及其糟糕
+    //30-60：不及格
+   // 60-80：良好
+    //80-90优秀
+    //90-100 nb
+
+    var c1 = document.getElementById('c1');
+    var c2 = document.getElementById('c2');
+    var c3 = document.getElementById('c3');
+    var total = document.getElementById('total');
+    var average = document.getElementById('average');
+    var result = document.getElementById('result');
+    var btn = document.getElementById('btn');
+    btn.onclick = function(){
+        var num1 = Number(c1.value);
+        var num2 = Number(c2.value);
+        var num3 = Number(c3.value);
+
+        total.innerHTML = num1 + num2 + num3;
+        var f = total.innerHTML/3;
+        average.innerHTML = f;
+
+        if(f <=30){
+            result.innerHTML = "极其糟糕";
+        }
+        else if(f >30 && f<=60 ){
+            result.innerHTML = "不及格";
+        }
+        else if(f >60 && f<=80 ){
+            result.innerHTML = "良好";
+        }
+        else if(f >80 && f<=90 ){
+            result.innerHTML = "优秀";
+        }
+        else if(f >90 && f<=100 ){
+            result.innerHTML = "NB";
+        }
+
+    }
+
+
+</script>
+</body>
+</html>
