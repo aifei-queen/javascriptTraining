@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1 {
+            margin: 100px auto 0;
+            width: 790px;
+            height: 340px;
+            border: 1px solid #000;
+            position: relative;
+        }
+        ul {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            text-align: center;
+            bottom: 10px;
+        }
+        li {
+            list-style:none;
+            display: inline-block;
+            padding: 12px 18px;
+            background: rgba(255,255,255,.9);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        li.current {
+            background: rgba(255,255,0,.9);
+        }
+        img {
+            transition: .1s all;
+        }
+        #prv,#next{position: absolute; top:50%; margin-top: -40px; width: 60px; height:80px; background: #333333; }
+        #prv{ left: 0;}
+        #next{ right: 0;}
+    </style>
+</head>
+
+<body>
+<div id="div1">
+    <img src="img/0.jpg" alt="">
+    <ul>
+        <li class="current">0</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+    </ul>
+    <span id="prv"><</span>
+    <span id="next">></span>
+</div>
+<script>
+/*思路：
+1:点击第几个li 图片的路径就切换到 几.jpg
+2:点击 prv 图片的路径就 -1；最小值为0
+3：点击next 图片的路径 + 1；最大值为 li.length
+* */
+var lis = document.querySelectorAll("li");
+var imgs = document.querySelector("img");
+var prv = document.getElementById("prv");
+var next = document.getElementById("next");
+var n = 0;
+var m = lis.length;
+for(var i=0; i<lis.length; i++){
+    lis[i].index = i;
+    lis[i].onclick = function () {
+        imgs.src = "img/"+ this.index +".jpg";
+        this.className = 'current';
+        lis[n].className = "";
+        n = this.index;
+    }
+    prv.onclick = function () {
+        //初始值为0，清掉lis[0]的样式，点一次，n减一一次， 图片的路径为n-1 之后的值即n的值，再为当前的lis添加显示样式。
+        lis[n].className = '';
+        n--;
+        if(n==-1) {  n = m - 1;}
+        imgs.src = "img/"+ n +".jpg";
+        lis[n].className = 'current';
+
+    }
+    next.onclick = function () {
+        lis[n].className = '';
+        n++;
+        if(n==8){
+            n = 0;
+        }
+        imgs.src = "img/"+ n +".jpg";
+        lis[n].className = 'current';
+    }
+/*    prv.onclick = function (){
+       if(n==0){//n为0，则重设n的值为7；不为0，让n的值减1；
+            n=lis.length-1;
+            /!*lis[0].className = '';
+           lis[lis.length-1].className = 'current';*!/
+        }/!*else{
+            n--;
+        }*!/
+        // 问题：n为0的时候，lis[0]的class 清不掉
+        //n为7的时候，lis[n+1]的class 找不到
+        imgs.src = "img/"+ (n) +".jpg";
+        lis[n+1].className = '';
+        lis[n].className = 'current';
+        n--;
+    }*/
+
+    /*next.onclick = function (){
+        if(n==lis.length-1){
+            n=0;
+            lis[lis.length-1].className = '';
+            lis[0].className = 'current';
+        }else{
+            n++;
+        }
+        imgs.src = "img/"+ (n) +".jpg";
+        lis[n-1].className = '';
+        lis[n].className = 'current';
+
+    }*/
+}
+
+
+
+</script>
+</body>
+</html>

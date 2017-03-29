@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{ margin: 0; padding: 0;}
+        .box{width: 500px; padding: 20px 10px; background: #f5f5f5;}
+        li{ list-style: none; padding: 10px 0; border-bottom: 1px dashed #ccc;}
+       .txt p{display: inline-block; width: 400px;}
+        .ed{ display: none;}
+        .ed input{ padding: 5px; width: 360px; margin-right: 10px;}
+        .ed button{ margin-left: 10px;}
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <ul>
+        <li>
+            <div class="txt"><p>欢迎来到妙味</p><button>编辑</button></div>
+            <div class="ed">
+                <input><button class="yesbtn">确定</button><button  class="nobtn">取消</button>
+            </div>
+        </li>
+        <li>
+            <div class="txt"><p>欢迎来到妙味</p><button>编辑</button></div>
+            <div class="ed">
+                <input><button  class="yesbtn">确定</button><button  class="nobtn">取消</button>
+            </div>
+        </li>
+        <li>
+            <div class="txt"><p>欢迎来到妙味</p><button>编辑</button></div>
+            <div class="ed">
+                <input><button  class="yesbtn">确定</button><button  class="nobtn">取消</button>
+            </div>
+        </li>
+    </ul>
+</div>
+<script>
+/*思路：
+ 1；点击编辑按钮，得到p的内容，并赋值给inpupt,隐藏txt div,显示ed div;
+ 2: 点击确定按钮，得到input框的值，若值为空，弹出内容不能为空的提示对话框，把值赋给 p; 并隐藏 ed, 显示 txt;
+ 3: 点击取消，隐藏ed,显示txt;
+* */
+var lis = document.querySelectorAll("li");
+var txtbox = document.querySelectorAll(".txt ");
+var edbox = document.querySelectorAll(".ed ");
+var edbtn = document.querySelectorAll(".txt button");
+var ptxt = document.querySelectorAll(".txt p");
+var inputs = document.querySelectorAll(".ed input");
+var yesbtn = document.querySelectorAll(".yesbtn");
+var nobtn = document.querySelectorAll(".nobtn");
+
+for(var i=0; i<lis.length;i++){
+    edbtn[i].index = i;
+    yesbtn[i].index = i;
+    nobtn[i].index = i;
+    edbtn[i].onclick = function(){
+        inputs[this.index].value = ptxt[this.index].innerHTML;
+        inputs[this.index].select();//全选内容；
+        txtbox[this.index].style.display = 'none';
+        edbox[this.index].style.display = 'block';
+    }
+    yesbtn[i].onclick = function () {
+        if(inputs[this.index].value == ''){
+            alert("内容不能为空！");
+        }else{
+            ptxt[this.index].innerHTML = inputs[this.index].value;
+            edbox[this.index].style.display = 'none';
+            txtbox[this.index].style.display = 'block';
+        }
+
+    }
+    nobtn[i].onclick = function () {
+        edbox[this.index].style.display = 'none';
+        txtbox[this.index].style.display = 'block';
+        //取消的时候把input的值，设置成span中的，避免修改来input 没确定
+    }
+}
+
+</script>
+</body>
+</html>
